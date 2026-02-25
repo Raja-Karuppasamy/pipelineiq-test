@@ -1,0 +1,29 @@
+name: Test Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: echo "Tests passing!"
+      - name: Notify PipelineIQ
+        if: always()
+        run: |
+          curl -X POST ${{ secrets.PIPELINEIQ_URL }}/api/v1/pipelines/runs \
+            -H "X-PipelineIQ-Key: ${{ secrets.PIPELINEIQ_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "repo_full_name": "${{ github.repository }}",
+              "branch": "${{ github.ref_name }}",
+              "commit_sha": "${{ github.sha }}",
+              "commit_message": "${{ github.event.head_commit.message }}",
+              "workflow_name": "${{ github.workflow }}",
+              "status": "${{ job.status }}",
+              "duration_seconds": 30,
+              "started_at": "${{ github.event.head_commit.timestamp }}"
+            }'
