@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run tests
-        run: echo "Tests passing!"
+        run: exit 1
       - name: Notify PipelineIQ
         if: always()
         run: |
