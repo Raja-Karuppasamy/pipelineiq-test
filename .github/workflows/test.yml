@@ -13,4 +13,5 @@ jobs:
         if: always()
         uses: Raja-Karuppasamy/pipelineiq-action@v1
         with:
-          api-key: ${{ secrets.PIPELINEIQ_API_KEY }}
+        api-key: ${{ secrets.PIPELINEIQ_API_KEY }}
+        job-status: ${{ job.status }}
