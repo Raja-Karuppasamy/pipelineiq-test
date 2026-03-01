@@ -11,7 +11,7 @@ jobs:
         run: echo "Tests passing!"
       - name: PipelineIQ
         if: always()
-        uses: Raja-Karuppasamy/pipelineiq-action@v1.1
+        uses: Raja-Karuppasamy/pipelineiq-action@v1.2
         with:
           api-key: ${{ secrets.PIPELINEIQ_API_KEY }}
           job-status: ${{ job.status }}
